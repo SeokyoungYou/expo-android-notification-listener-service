@@ -11,7 +11,6 @@ export interface NotificationData {
 declare class ExpoAndroidNotificationListenerServiceModule {
   isNotificationPermissionGranted(): boolean;
   openNotificationListenerSettings(): void;
-  testMessage(): string;
 }
 
 export default requireNativeModule<ExpoAndroidNotificationListenerServiceModule>(

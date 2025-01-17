@@ -35,10 +35,6 @@ class ExpoAndroidNotificationListenerServiceModule : Module() {
             isReady.set(false)
         }
 
-        Function("testMessage") {
-            "Hello world From Android! 👋"
-        } 
-
         Function("isNotificationPermissionGranted") {
             val context = appContext.reactContext ?: return@Function false
             val packageName = context.packageName
