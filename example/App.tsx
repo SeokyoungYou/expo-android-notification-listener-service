@@ -1,37 +1,16 @@
-import { useEvent } from 'expo';
-import ExpoAndroidNotificationListenerService, { ExpoAndroidNotificationListenerServiceView } from 'expo-android-notification-listener-service';
-import { Button, SafeAreaView, ScrollView, Text, View } from 'react-native';
+import ExpoAndroidNotificationListenerService from "expo-android-notification-listener-service";
+import { SafeAreaView, ScrollView, Text, View } from "react-native";
 
 export default function App() {
-  const onChangePayload = useEvent(ExpoAndroidNotificationListenerService, 'onChange');
-
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.container}>
         <Text style={styles.header}>Module API Example</Text>
-        <Group name="Constants">
-          <Text>{ExpoAndroidNotificationListenerService.PI}</Text>
-        </Group>
+
         <Group name="Functions">
-          <Text>{ExpoAndroidNotificationListenerService.hello()}</Text>
-        </Group>
-        <Group name="Async functions">
-          <Button
-            title="Set value"
-            onPress={async () => {
-              await ExpoAndroidNotificationListenerService.setValueAsync('Hello from JS!');
-            }}
-          />
-        </Group>
-        <Group name="Events">
-          <Text>{onChangePayload?.value}</Text>
-        </Group>
-        <Group name="Views">
-          <ExpoAndroidNotificationListenerServiceView
-            url="https://www.example.com"
-            onLoad={({ nativeEvent: { url } }) => console.log(`Loaded: ${url}`)}
-            style={styles.view}
-          />
+          <Text>
+            {ExpoAndroidNotificationListenerService.getNotification()}
+          </Text>
         </Group>
       </ScrollView>
     </SafeAreaView>
@@ -58,13 +37,13 @@ const styles = {
   },
   group: {
     margin: 20,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     borderRadius: 10,
     padding: 20,
   },
   container: {
     flex: 1,
-    backgroundColor: '#eee',
+    backgroundColor: "#eee",
   },
   view: {
     flex: 1,
