@@ -1,7 +1,61 @@
 import ExpoAndroidNotificationListenerService from "expo-android-notification-listener-service";
-import { SafeAreaView, ScrollView, Text, View } from "react-native";
+import { useState, useEffect } from "react";
+import {
+  SafeAreaView,
+  ScrollView,
+  Text,
+  View,
+  Alert,
+  AppState,
+} from "react-native";
 
-export default function App() {
+export default async function App() {
+  const [hasPermission, setHasPermission] = useState<boolean>(false);
+
+  useEffect(() => {
+    const checkPermission = async () => {
+      try {
+        const permission =
+          ExpoAndroidNotificationListenerService.isNotificationPermissionGranted();
+        setHasPermission(permission);
+
+        if (!permission) {
+          // 사용자에게 권한이 필요한 이유를 설명하는 Alert 표시
+          Alert.alert(
+            "Notification Permission Required",
+            "This app requires notification access permission to function properly.",
+            [
+              {
+                text: "Go to Settings",
+                onPress: () =>
+                  ExpoAndroidNotificationListenerService.openNotificationListenerSettings(),
+              },
+              {
+                text: "Cancel",
+                style: "cancel",
+              },
+            ]
+          );
+        }
+      } catch (error) {
+        console.error("Error checking permission:", error);
+      }
+    };
+
+    checkPermission();
+
+    // Check permission when app comes to foreground
+    const subscription = AppState.addEventListener("change", (nextAppState) => {
+      if (nextAppState === "active") {
+        checkPermission();
+      }
+    });
+
+    return () => {
+      subscription.remove();
+    };
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.container}>
@@ -9,7 +63,7 @@ export default function App() {
 
         <Group name="Functions">
           <Text>
-            {ExpoAndroidNotificationListenerService.getNotification()}
+            {ExpoAndroidNotificationListenerService.isNotificationPermissionGranted()}
           </Text>
         </Group>
       </ScrollView>
