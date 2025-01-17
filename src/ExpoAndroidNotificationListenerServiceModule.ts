@@ -19,6 +19,7 @@ type EventsMap = {
 declare class ExpoAndroidNotificationListenerServiceModule extends EventEmitter<EventsMap> {
   isNotificationPermissionGranted(): boolean;
   openNotificationListenerSettings(): void;
+  setAllowedPackages(packages: string[]): void;
 }
 
 export default requireNativeModule<ExpoAndroidNotificationListenerServiceModule>(

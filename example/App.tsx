@@ -6,11 +6,19 @@ import { SafeAreaView, ScrollView, Text, View, StyleSheet } from "react-native";
 
 import { useCheckNotificationPermission } from "./useChecknotificationPermission";
 
+const ALLOWED_PACKAGES = [
+  "com.kakao.talk",
+  "com.google.android.apps.messaging",
+  "com.mand.notitest",
+];
+
 export default function App() {
   const { hasPermission } = useCheckNotificationPermission();
   const [notifications, setNotifications] = useState<NotificationData[]>([]);
 
   useEffect(() => {
+    ExpoAndroidNotificationListenerService.setAllowedPackages(ALLOWED_PACKAGES);
+
     const subscription = ExpoAndroidNotificationListenerService.addListener(
       "onNotificationReceived",
       (event: NotificationData) => {

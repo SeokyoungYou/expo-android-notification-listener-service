@@ -6,6 +6,13 @@ import android.app.Notification
 
 class ExpoNotificationListenerService : NotificationListenerService() {
     override fun onNotificationPosted(sbn: StatusBarNotification) {
+        val moduleInstance = ExpoAndroidNotificationListenerServiceModule.getInstance() ?: return
+        
+        // 패키지 필터링 체크
+        if (!moduleInstance.isPackageAllowed(sbn.packageName)) {
+            return
+        }
+
         val notification = sbn.notification
         val extras = notification.extras
 

@@ -15,6 +15,7 @@ class ExpoAndroidNotificationListenerServiceModule : Module() {
     private val mainHandler = Handler(Looper.getMainLooper())
     private val isReady = AtomicBoolean(false)
     private val pendingNotifications = mutableListOf<Map<String, Any>>()
+    private var allowedPackages: Set<String> = emptySet()
     
     override fun definition() = ModuleDefinition {
         Name("ExpoAndroidNotificationListenerService")
@@ -49,6 +50,10 @@ class ExpoAndroidNotificationListenerServiceModule : Module() {
             context.startActivity(intent)
             Unit
         }
+
+        Function("setAllowedPackages") { packages: List<String> ->
+            allowedPackages = packages.toSet()
+        }
     }
 
     companion object {
@@ -77,6 +82,10 @@ class ExpoAndroidNotificationListenerServiceModule : Module() {
                 e.printStackTrace()
             }
         }
+    }
+
+    fun isPackageAllowed(packageName: String): Boolean {
+        return allowedPackages.isEmpty() || allowedPackages.contains(packageName)
     }
 }
 
