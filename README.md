@@ -14,20 +14,42 @@ npm install expo-android-notification-listener-service
 ## Usage
 
 ```tsx
-import { NotificationListenerService } from "expo-android-notification-listener-service";
+import ExpoAndroidNotificationListenerService, {
+  NotificationData,
+} from "expo-android-notification-listener-service";
 
-NotificationListenerService.start();
+const { hasPermission } = useCheckNotificationPermission();
+const [notifications, setNotifications] = useState<NotificationData[]>([]);
+
+useEffect(() => {
+  ExpoAndroidNotificationListenerService.setAllowedPackages(ALLOWED_PACKAGES);
+
+  const subscription = ExpoAndroidNotificationListenerService.addListener(
+    "onNotificationReceived",
+    (event: NotificationData) => {
+      setNotifications((prev) => [...prev, event]);
+    }
+  );
+
+  return () => {
+    subscription.remove();
+  };
+}, []);
 ```
 
-## Start Project to contribute
+Refer to the [example](./example/App.tsx) for more details.
 
-1. Build the library
+## Start Project in local
+
+1. Terminal 1: Build the library
 
 ```bash
 npx run build
 ```
 
-2. Create a development environment to run the example in Android Studio.
+2. Terminal 2: Run the example in Android Studio.
+
+Development build app will run in emulator.
 
 ```bash
 cd example

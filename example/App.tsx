@@ -18,7 +18,6 @@ export default function App() {
     const subscription = ExpoAndroidNotificationListenerService.addListener(
       "onNotificationReceived",
       (event: NotificationData) => {
-        console.log("onNotificationReceived", event);
         setNotifications((prev) => [...prev, event]);
       }
     );
