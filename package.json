@@ -1,6 +1,6 @@
 {
   "name": "expo-android-notification-listener-service",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "An Expo module for Android that allows React Native apps to monitor and interact with notifications from other apps using NotificationListenerService.",
   "main": "build/index.js",
   "types": "build/index.d.ts",
