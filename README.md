@@ -1,7 +1,6 @@
 # Expo Android NotificationListenerService
 
-<img width="1192" alt="image" src="https://github.com/user-attachments/assets/da45f890-fac7-44ef-91b5-54d62e556110" />
-
+![Jan-17-2025 20-31-53](https://github.com/user-attachments/assets/7a04810e-8c9d-4098-856f-ee813a156a15)
 
 An [Expo module](https://docs.expo.dev/modules/overview/) library that allows Expo app to monitor and interact with notifications from other apps using [NotificationListenerService](https://developer.android.com/reference/android/service/notification/NotificationListenerService).
 
