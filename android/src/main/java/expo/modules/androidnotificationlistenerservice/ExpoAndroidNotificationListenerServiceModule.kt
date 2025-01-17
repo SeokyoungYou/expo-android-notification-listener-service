@@ -9,7 +9,7 @@ class ExpoAndroidNotificationListenerServiceModule : Module() {
 
     Name("ExpoAndroidNotificationListenerService")
     Function("getNotification") {
-      "Hello world! 👋"
+      "Hello world From Native! 👋"
     } 
   }
 }

@@ -30,3 +30,7 @@ npx run build
 cd example
 npx expo run:android
 ```
+
+3. Run the example in Android Studio.
+
+Open expo-android-notification-listener-service/example/android in Android Studio.
