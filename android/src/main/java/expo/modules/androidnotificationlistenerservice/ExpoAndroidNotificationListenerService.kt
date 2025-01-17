@@ -5,13 +5,25 @@ import android.service.notification.StatusBarNotification
 import android.app.Notification
 
 class ExpoNotificationListenerService : NotificationListenerService() {
+    private var lastNotificationKey: String? = null
+    private var lastNotificationTime: Long = 0
+
     override fun onNotificationPosted(sbn: StatusBarNotification) {
         val moduleInstance = ExpoAndroidNotificationListenerServiceModule.getInstance() ?: return
         
-        // 패키지 필터링 체크
+    
         if (!moduleInstance.isPackageAllowed(sbn.packageName)) {
             return
         }
+
+        // Delete duplicate notification
+        val currentTime = System.currentTimeMillis()
+        if (sbn.key == lastNotificationKey && currentTime - lastNotificationTime < 500) {
+            return
+        }
+        
+        lastNotificationKey = sbn.key
+        lastNotificationTime = currentTime
 
         val notification = sbn.notification
         val extras = notification.extras
