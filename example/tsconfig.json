@@ -1,0 +1,10 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": true,
+    "paths": {
+      "expo-android-notification-listener-service": ["../src/index"],
+      "expo-android-notification-listener-service/*": ["../src/*"]
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "name": "expo-android-notification-listener-service",
+  "version": "0.1.0",
+  "description": "An Expo module for Android that allows React Native apps to monitor and interact with notifications from other apps using NotificationListenerService.",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "scripts": {
+    "build": "expo-module build",
+    "clean": "expo-module clean",
+    "lint": "expo-module lint",
+    "test": "expo-module test",
+    "prepare": "expo-module prepare",
+    "prepublishOnly": "expo-module prepublishOnly",
+    "expo-module": "expo-module",
+    "open:ios": "xed example/ios",
+    "open:android": "open -a \"Android Studio\" example/android"
+  },
+  "keywords": [
+    "react-native",
+    "expo",
+    "expo-android-notification-listener-service",
+    "ExpoAndroidNotificationListenerService"
+  ],
+  "repository": "https://github.com/SeokyoungYou/expo-android-notification-listener-service",
+  "bugs": {
+    "url": "https://github.com/SeokyoungYou/expo-android-notification-listener-service/issues"
+  },
+  "author": "Quartz <skyu.dev@gmail.com> (https://github.com/SeokyoungYou)",
+  "license": "MIT",
+  "homepage": "https://github.com/SeokyoungYou/expo-android-notification-listener-service#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/react": "~18.3.12",
+    "expo-module-scripts": "^4.0.3",
+    "expo": "~52.0.0",
+    "react-native": "0.76.0"
+  },
+  "peerDependencies": {
+    "expo": "*",
+    "react": "*",
+    "react-native": "*"
+  }
+}
