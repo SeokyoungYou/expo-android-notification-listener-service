@@ -1,10 +1,28 @@
-import ExpoAndroidNotificationListenerService from "expo-android-notification-listener-service";
-import { SafeAreaView, ScrollView, Text, View } from "react-native";
+import ExpoAndroidNotificationListenerService, {
+  NotificationData,
+} from "expo-android-notification-listener-service";
+import { useEffect, useState } from "react";
+import { SafeAreaView, ScrollView, Text, View, StyleSheet } from "react-native";
 
 import { useCheckNotificationPermission } from "./useChecknotificationPermission";
 
 export default function App() {
   const { hasPermission } = useCheckNotificationPermission();
+  const [notifications, setNotifications] = useState<NotificationData[]>([]);
+
+  useEffect(() => {
+    const subscription = ExpoAndroidNotificationListenerService.addListener(
+      "onNotificationReceived",
+      (event: NotificationData) => {
+        console.log("onNotificationReceived", event);
+        setNotifications((prev) => [...prev, event]);
+      }
+    );
+
+    return () => {
+      subscription.remove();
+    };
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -13,6 +31,19 @@ export default function App() {
 
         <Group name="Notification Permission">
           <Text>hasPermission: {String(hasPermission)}</Text>
+        </Group>
+
+        <Group name="Notifications">
+          {notifications.map((notification, index) => (
+            <View key={index} style={styles.notification}>
+              <Text>Package: {notification.packageName}</Text>
+              <Text>Title: {notification.title}</Text>
+              <Text>Text: {notification.text}</Text>
+              <Text>
+                Time: {new Date(notification.postTime).toLocaleString()}
+              </Text>
+            </View>
+          ))}
         </Group>
       </ScrollView>
     </SafeAreaView>
@@ -28,7 +59,7 @@ function Group(props: { name: string; children: React.ReactNode }) {
   );
 }
 
-const styles = {
+const styles = StyleSheet.create({
   header: {
     fontSize: 30,
     margin: 20,
@@ -51,4 +82,9 @@ const styles = {
     flex: 1,
     height: 200,
   },
-};
+  notification: {
+    padding: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: "#ccc",
+  },
+});
