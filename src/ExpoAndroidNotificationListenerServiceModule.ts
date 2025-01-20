@@ -10,6 +10,8 @@ export interface NotificationData {
   summaryText: string;
   postTime: number;
   key: string;
+  appName: string;
+  appIconPath: string;
 }
 
 type EventsMap = {

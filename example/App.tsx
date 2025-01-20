@@ -2,7 +2,14 @@ import ExpoAndroidNotificationListenerService, {
   NotificationData,
 } from "expo-android-notification-listener-service";
 import { useEffect, useState } from "react";
-import { SafeAreaView, ScrollView, Text, View, StyleSheet } from "react-native";
+import {
+  SafeAreaView,
+  ScrollView,
+  Text,
+  View,
+  StyleSheet,
+  Image,
+} from "react-native";
 
 import { useCheckNotificationPermission } from "./useChecknotificationPermission";
 
@@ -48,21 +55,41 @@ export default function App() {
         <Group name="Notifications">
           {notifications.map((notification, index) => (
             <View key={index} style={styles.notification}>
-              <View style={styles.fieldContainer}>
-                <Text style={styles.fieldLabel}>title</Text>
-                <Text style={styles.notificationTitle}>
-                  {notification.title}
-                </Text>
+              <View style={styles.notificationHeader}>
+                {notification.appIconPath && (
+                  <Image
+                    source={{ uri: `file://${notification.appIconPath}` }}
+                    style={styles.appIcon}
+                  />
+                )}
+                {notification.appName && (
+                  <Text style={styles.notificationAppName}>
+                    {notification.appName}
+                  </Text>
+                )}
               </View>
 
-              <View style={styles.fieldContainer}>
-                <Text style={styles.fieldLabel}>text</Text>
-                <Text style={styles.notificationText}>{notification.text}</Text>
-              </View>
+              {notification.title && (
+                <View style={styles.fieldContainer}>
+                  <Text style={styles.fieldLabel}>Title</Text>
+                  <Text style={styles.notificationText}>
+                    {notification.title}
+                  </Text>
+                </View>
+              )}
+
+              {notification.text && (
+                <View style={styles.fieldContainer}>
+                  <Text style={styles.fieldLabel}>Text</Text>
+                  <Text style={styles.notificationText}>
+                    {notification.text}
+                  </Text>
+                </View>
+              )}
 
               {notification.bigText && (
                 <View style={styles.fieldContainer}>
-                  <Text style={styles.fieldLabel}>bigText</Text>
+                  <Text style={styles.fieldLabel}>Big Text</Text>
                   <Text style={styles.notificationBigText}>
                     {notification.bigText}
                   </Text>
@@ -71,7 +98,7 @@ export default function App() {
 
               {notification.subText && (
                 <View style={styles.fieldContainer}>
-                  <Text style={styles.fieldLabel}>subText</Text>
+                  <Text style={styles.fieldLabel}>Sub Text</Text>
                   <Text style={styles.notificationText}>
                     {notification.subText}
                   </Text>
@@ -80,7 +107,7 @@ export default function App() {
 
               {notification.summaryText && (
                 <View style={styles.fieldContainer}>
-                  <Text style={styles.fieldLabel}>summaryText</Text>
+                  <Text style={styles.fieldLabel}>Summary Text</Text>
                   <Text style={styles.notificationText}>
                     {notification.summaryText}
                   </Text>
@@ -136,24 +163,20 @@ const styles = StyleSheet.create({
     height: 200,
   },
   notification: {
-    padding: 15,
-    backgroundColor: "white",
-    borderRadius: 12,
-    marginBottom: 10,
+    padding: 20,
+    backgroundColor: "#f9f9f9",
+    borderRadius: 15,
+    marginBottom: 15,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 4,
     },
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
-    elevation: 3,
+    shadowOpacity: 0.2,
+    shadowRadius: 5,
+    elevation: 5,
   },
-  notificationTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 8,
-  },
+
   notificationText: {
     fontSize: 16,
     color: "#333",
@@ -184,5 +207,21 @@ const styles = StyleSheet.create({
     color: "#666",
     textTransform: "uppercase",
     marginBottom: 2,
+  },
+  appIcon: {
+    width: 24,
+    height: 24,
+    borderRadius: 12,
+  },
+  notificationHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+    marginBottom: 10,
+  },
+  notificationAppName: {
+    fontSize: 16,
+    color: "#333",
+    fontWeight: "bold",
   },
 });
