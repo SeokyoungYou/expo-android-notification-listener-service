@@ -3,13 +3,15 @@ import { requireNativeModule, EventEmitter } from "expo-modules-core";
 export interface NotificationData {
   packageName: string;
   id: number;
-  title: string;
-  text: string;
-  bigText: string;
-  subText: string;
-  summaryText: string;
+  title: string | null;
+  text: string | null;
+  bigText: string | null;
+  subText: string | null;
+  summaryText: string | null;
   postTime: number;
   key: string;
+  appName: string | null;
+  appIconPath: string | null;
 }
 
 type EventsMap = {
