@@ -51,15 +51,15 @@ class ExpoNotificationListenerService : NotificationListenerService() {
             val notificationData = mapOf(
                 "packageName" to sbn.packageName,
                 "id" to sbn.id,
-                "title" to (extras.getCharSequence(Notification.EXTRA_TITLE)?.toString()),
-                "text" to (extras.getCharSequence(Notification.EXTRA_TEXT)?.toString()),
-                "bigText" to (extras.getCharSequence(Notification.EXTRA_BIG_TEXT)?.toString()),
-                "subText" to (extras.getCharSequence(Notification.EXTRA_SUB_TEXT)?.toString()),
-                "summaryText" to (extras.getCharSequence(Notification.EXTRA_SUMMARY_TEXT)?.toString()),
+                "title" to (extras.getCharSequence(Notification.EXTRA_TITLE)?.toString() ?: ""),
+                "text" to (extras.getCharSequence(Notification.EXTRA_TEXT)?.toString() ?: ""),
+                "bigText" to (extras.getCharSequence(Notification.EXTRA_BIG_TEXT)?.toString() ?: ""),
+                "subText" to (extras.getCharSequence(Notification.EXTRA_SUB_TEXT)?.toString() ?: ""),
+                "summaryText" to (extras.getCharSequence(Notification.EXTRA_SUMMARY_TEXT)?.toString() ?: ""),
                 "postTime" to sbn.postTime,
                 "key" to sbn.key,
-                "appName" to packageManager.getApplicationLabel(applicationInfo)?.toString(),
-                "appIconPath" to iconPath
+                "appName" to (packageManager.getApplicationLabel(applicationInfo)?.toString() ?: ""),
+                "appIconPath" to (iconPath ?: "")
             )
             
             ExpoAndroidNotificationListenerServiceModule.getInstance()?.emitNotificationEvent(notificationData)

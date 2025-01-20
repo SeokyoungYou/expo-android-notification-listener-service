@@ -56,20 +56,20 @@ export default function App() {
           {notifications.map((notification, index) => (
             <View key={index} style={styles.notification}>
               <View style={styles.notificationHeader}>
-                {notification?.appIconPath && (
+                {notification.appIconPath && (
                   <Image
                     source={{ uri: `file://${notification.appIconPath}` }}
                     style={styles.appIcon}
                   />
                 )}
-                {notification?.appName && (
+                {notification.appName && (
                   <Text style={styles.notificationAppName}>
                     {notification.appName}
                   </Text>
                 )}
               </View>
 
-              {notification?.title && (
+              {notification.title && (
                 <View style={styles.fieldContainer}>
                   <Text style={styles.fieldLabel}>Title</Text>
                   <Text style={styles.notificationText}>
@@ -78,7 +78,7 @@ export default function App() {
                 </View>
               )}
 
-              {notification?.text && (
+              {notification.text && (
                 <View style={styles.fieldContainer}>
                   <Text style={styles.fieldLabel}>Text</Text>
                   <Text style={styles.notificationText}>
@@ -87,7 +87,7 @@ export default function App() {
                 </View>
               )}
 
-              {notification?.bigText && (
+              {notification.bigText && (
                 <View style={styles.fieldContainer}>
                   <Text style={styles.fieldLabel}>Big Text</Text>
                   <Text style={styles.notificationBigText}>
@@ -96,7 +96,7 @@ export default function App() {
                 </View>
               )}
 
-              {notification?.subText && (
+              {notification.subText && (
                 <View style={styles.fieldContainer}>
                   <Text style={styles.fieldLabel}>Sub Text</Text>
                   <Text style={styles.notificationText}>
@@ -105,7 +105,7 @@ export default function App() {
                 </View>
               )}
 
-              {notification?.summaryText && (
+              {notification.summaryText && (
                 <View style={styles.fieldContainer}>
                   <Text style={styles.fieldLabel}>Summary Text</Text>
                   <Text style={styles.notificationText}>
